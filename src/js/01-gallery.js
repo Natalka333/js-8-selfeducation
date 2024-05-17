@@ -11,3 +11,9 @@ console.log(galleryItems);
 //     return x * y;
 // };
 // export {sum, add};
+
+
+
+import SimpleLightbox from "simplelightbox";
+// Дополнительный импорт стилей
+import "simplelightbox/dist/simple-lightbox.min.css";
