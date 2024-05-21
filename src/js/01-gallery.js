@@ -17,3 +17,31 @@ console.log(galleryItems);
 import SimpleLightbox from "simplelightbox";
 // Дополнительный импорт стилей
 import "simplelightbox/dist/simple-lightbox.min.css";
+
+const galleryImage = document.querySelector('.gallery');
+
+function createGalleryItems(items) {
+    return items.map(({ preview, original, description }) => {
+        return `
+    <li class="gallery__item">
+    <a class="gallery__link" href="${original}">
+    <img
+      class="gallery__image"
+      src="${preview}"
+      alt="${description}"
+    />
+    </a>
+   </li>`;
+    }).join('');
+
+}
+
+galleryImage.innerHTML = createGalleryItems(galleryItems);
+
+
+const lightbox = new SimpleLightbox('.gallery a', { 
+    captionsData: 'alt',
+    captionPosition: 'bottom',
+    animationSpeed:	250,
+    
+});

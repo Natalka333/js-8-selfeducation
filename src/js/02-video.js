@@ -7,3 +7,16 @@
 // import *as data from './01-gallery'
 // console.log(data);
 // console.log(data.sum(5,8));
+
+// localStorage.setItem('KEY', JSON.stringify([1,2,3]));
+// console.log(localStorage.setItem('KEY'));
+
+const btnLocal = document.querySelector('.js-local');
+const btnSession = document.querySelector('.js-session');
+
+btnLocal.addEventListener('click', () => {
+localStorage.setItem('local', 'test local');
+});
+btnSession.addEventListener('click', () => {
+    sessionStorage.setItem('session', 'test session'); 
+})
