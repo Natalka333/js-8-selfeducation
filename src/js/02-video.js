@@ -1,22 +1,35 @@
-// import {add,sum} from './01-gallery'
-// console.log(add(5,6));
-// console.log(sum(2,8));
 
-// или так импортировать ,усли больше 5 функций например
 
-// import *as data from './01-gallery'
-// console.log(data);
-// console.log(data.sum(5,8));
+import Player from '@vimeo/player';
+import throttle from 'lodash.throttle';
 
-// localStorage.setItem('KEY', JSON.stringify([1,2,3]));
-// console.log(localStorage.setItem('KEY'));
+import { common } from './common';
 
-const btnLocal = document.querySelector('.js-local');
-const btnSession = document.querySelector('.js-session');
+const iframe = document.querySelector('iframe');
+const player = new Player(iframe);
 
-btnLocal.addEventListener('click', () => {
-localStorage.setItem('local', 'test local');
+
+
+player.ready().then(() => {
+    const onTimeUpdate = throttle(data => {
+        const currentTime = data.seconds;
+        localStorage.setItem('common.KEY_VIDEO', currentTime)
+    }, 1000);
+
+    player.on('timeupdate', onTimeUpdate);
+
+    const saveTime = localStorage.getItem('common.KEY_VIDEO');
+    const currentTime = parseFloat(saveTime);
+    player.setCurrentTime(currentTime).then(function (seconds) {
+    }).catch(function (error) {
+        switch (error.name) {
+            case 'RangeError':
+                break;
+            default:
+                break;
+        }
+    });
+
 });
-btnSession.addEventListener('click', () => {
-    sessionStorage.setItem('session', 'test session'); 
-})
+
+
