@@ -1,43 +1,52 @@
 import throttle from 'lodash.throttle';
 import { common } from './common';
 
-const formData = {};
 
 const form = document.querySelector('.feedback-form');
-const textarea = document.querySelector('.feedback-form textarea');
-const input = document.querySelector('.feedback-form input')
 
 form.addEventListener('submit', onFormSubmit);
-textarea.addEventListener('input', throttle(onTextareaInput, 500));
+form.addEventListener('input', throttle(onFormInput, 500));
 
-form.addEventListener('input', evt => {
-    // console.log(evt.target.name);
-    // console.log(evt.target.value);
-    formData[evt.target.name] = evt.target.value;
-    localStorage.setItem(common.KEY_FORM, JSON.stringify(formData));
-    console.log(formData);
-})
+populateForm();
 
-populateTextarea();
+
+function onFormInput(evt) {
+    const formInfo = JSON.parse(localStorage.getItem(common.KEY_FORM)) ?? {};
+    formInfo[evt.target.name] = evt.target.value;
+    localStorage.setItem(common.KEY_FORM, JSON.stringify(formInfo));
+
+
+}
+
+function populateForm() {
+    let savedInfo = localStorage.getItem(common.KEY_FORM);
+    if (savedInfo) {
+        savedInfo = JSON.parse(savedInfo);
+        Object.entries(savedInfo).forEach(([key, text]) => {
+            form.elements[key].value = text || '';
+        });
+    }
+}
+
+
 
 function onFormSubmit(evt) {
     evt.preventDefault();
+    const { elements: { email, message }, } = evt.currentTarget;
+    if (email.value === '' || message.value === '') {
+        return alert('fill all the fields');
+    } else {
+        formData = JSON.parse(localStorage.getItem(common.KEY_FORM));
+    }
     evt.currentTarget.reset();
     localStorage.removeItem(common.KEY_FORM);
+formData = {};
 };
 
 
-function onTextareaInput(evt) {
-    const message = evt.target.value;
-    localStorage.setItem(common.KEY_FORM, JSON.stringify(formData));
-
-};
 
 
-function populateTextarea() {
-    const savedMassege = localStorage.getItem(common.KEY_FORM);
-    if (savedMassege) {
-        console.log(savedMassege)
-    }
-    textarea.value = savedMassege;
-}
+
+
+
+
