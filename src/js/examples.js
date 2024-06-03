@@ -11,7 +11,7 @@
 
 
 localStorage.setItem('KEY', JSON.stringify([1,2,3]));
-console.log(localStorage.getItem('KEY'));
+console.log(JSON.parse(localStorage.getItem('KEY')));
 
 const btnLocal = document.querySelector('.js-local');
 const btnSession = document.querySelector('.js-session');
@@ -23,4 +23,4 @@ btnSession.addEventListener('click', () => {
     sessionStorage.setItem('session', 'test session'); 
 })
 
-console.log(localStorage.getItem('local'));
+console.log(sessionStorage.getItem('session'));
