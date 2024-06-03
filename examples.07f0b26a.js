@@ -1,2 +1,0 @@
-localStorage.setItem("KEY",JSON.stringify([1,2,3])),console.log(localStorage.getItem("KEY"));const e=document.querySelector(".js-local"),t=document.querySelector(".js-session");e.addEventListener("click",(()=>{localStorage.setItem("local","test local")})),t.addEventListener("click",(()=>{sessionStorage.setItem("session","test session")})),console.log(localStorage.getItem("local"));
-//# sourceMappingURL=examples.07f0b26a.js.map
